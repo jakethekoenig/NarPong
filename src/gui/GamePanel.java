@@ -25,8 +25,8 @@ public class GamePanel extends JPanel implements KeyListener {
 		player2 = new Rectangle(675, 270, 20, 60);
 		ballX = 350;
 		ballY = 300;
-		ballXVel = Math.random() - 0.5 + 3.0;
-		ballYVel = Math.random() - 0.5 + 1.0;
+		ballXVel = (Math.random() - 0.5) * 10.0;
+		ballYVel = (Math.random() - 0.5) * 5.0;
 
 		this.setName("Game Panel");
 		this.requestFocus();
@@ -45,17 +45,20 @@ public class GamePanel extends JPanel implements KeyListener {
 					} catch (InterruptedException e) {
 					}
 					if (player1.y + player1.height < 470 && player1.y > 3) {
-						player1.y += p1m * 2;
+						player1.y += p1m * 6;
 					} else {
-						p1m = -p1m;
-						player1.y += p1m * 2;
+						if (player1.y <= 3) {
+							player1.y = 4;
+						} else {
+							player1.y = 470 - player1.height - 1;
+						}
 					}
 					if (player2.y + player1.height < 470 && player2.y > 3) {
-						player2.y += p2m * 2;
-					} else {
-						p2m = -p2m;
-						player2.y += p2m * 2;
+						player2.y += p2m * 6;
 					}
+
+					ballX = (int) ((double) (ballX + ballXVel));
+					ballY = (int) ((double) (ballY + ballYVel));
 
 					// Collisions
 					if (player1.contains(ballX - ballRad - 2, ballY)) {
@@ -77,8 +80,12 @@ public class GamePanel extends JPanel implements KeyListener {
 						ballXVel = -ballXVel;
 					}
 
-					ballX = (int) ((double) (ballX + ballXVel));
-					ballY = (int) ((double) (ballY + ballYVel));
+					if (ballX < 0) {
+						ballX = 350;
+						ballY = 300;
+						ballXVel = (Math.random() - 0.5) * 10.0;
+						ballYVel = (Math.random() - 0.5) * 5.0;
+					}
 
 					daddy.repaint();
 
@@ -116,12 +123,6 @@ public class GamePanel extends JPanel implements KeyListener {
 		case KeyEvent.VK_S:
 			p1m = 1;
 			break;
-		case KeyEvent.VK_UP:
-			p2m = -1;
-			break;
-		case KeyEvent.VK_DOWN:
-			p2m = 1;
-			break;
 		default:
 			break;
 		}
@@ -129,6 +130,6 @@ public class GamePanel extends JPanel implements KeyListener {
 	}
 
 	public void keyReleased(KeyEvent e) {
-
+		p1m = 0;
 	}
 }
