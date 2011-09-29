@@ -25,8 +25,8 @@ public class MenuPanel extends JPanel implements MouseMotionListener, MouseListe
 	public MenuPanel(MainFrame parent) {
 		bigDaddy = parent;
 		background = new ImageIcon(getClass().getResource("/res/img/NarPong_Menu.png"));
-		newGameBounds = new Rectangle(new Point(233, 176), new Dimension(247, 44));
-		highScoreBounds = new Rectangle(new Point(216, 245), new Dimension(280, 44));
+		newGameBounds = new Rectangle(new Point(233, 190), new Dimension(247, 44));
+		highScoreBounds = new Rectangle(new Point(216, 260), new Dimension(280, 44));
 
 		this.setPreferredSize(new Dimension(background.getIconWidth(), background.getIconHeight()));
 		this.addMouseListener(this);
@@ -41,10 +41,10 @@ public class MenuPanel extends JPanel implements MouseMotionListener, MouseListe
 
 		Dimension d = this.getSize();
 
-		int x = (int) ((double) d.width / 2.0 - 300.0);
-		int y = (int) ((double) d.height / 2.0 - 200.0);
+		int x = 0;// (int) ((double) d.width / 2.0 - 300.0);
+		int y = 0;// (int) ((double) d.height / 2.0 - 200.0);
 
-		g2.drawImage(background.getImage(), x, y, 600, 400, Color.black, null);
+		g2.drawImage(background.getImage(), x, y, 700, 500, Color.black, null);
 
 		g2.setColor(Color.gray);
 
@@ -74,21 +74,22 @@ public class MenuPanel extends JPanel implements MouseMotionListener, MouseListe
 	}
 
 	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	public void mouseDragged(MouseEvent e) {
+	}
+
+	public void mousePressed(MouseEvent e) { /* unused */
+	}
+
+	public void mouseReleased(MouseEvent e) {
 		if (newGameBounds.contains(e.getPoint())) {
 			bigDaddy.newGame();
 		}
 		if (highScoreBounds.contains(e.getPoint())) {
 			System.out.println("CLICK HIGHSCORE");
 		}
-	}
-
-	public void mouseDragged(MouseEvent e) { /* unused */
-	}
-
-	public void mousePressed(MouseEvent e) { /* unused */
-	}
-
-	public void mouseReleased(MouseEvent e) { /* unused */
 	}
 
 	public void mouseEntered(MouseEvent e) { /* unused */
